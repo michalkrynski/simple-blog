@@ -2,7 +2,8 @@ const express = require('express');
 const router = express.Router();
 
 router.get('/:postId', (req, res) => {
-  res.send(`Getting post with id: ${req.params.postId}`);
+  console.log('body:', req.body);
+  res.send(`Getting postt with id: ${req.params.postId}`);
 })
 
 router.put('/:postId', (req, res) => {
