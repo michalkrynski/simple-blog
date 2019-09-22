@@ -1,17 +1,24 @@
 const express = require('express');
 const router = express.Router();
+const Post = require('../models/post');
 
-router.get('/:postId', (req, res) => {
-  console.log('body:', req.body);
-  res.send(`Getting postt with id: ${req.params.postId}`);
-})
-
-router.put('/:postId', (req, res) => {
-  res.send(`Update post with id: ${req.params.postId}`);
-})
-
-router.delete('/:postId', (req, res) => {
-  res.send(`Delete post with id: ${req.params.postId}`);
+router.get('/', (req, res) => {
+  Post.find((err, posts) => {
+    if (err) {
+      res.status(500).send(err);
+    }
+    res.status(200).send(posts);
+  })
 });
+
+router.post('/', (req, res) => {
+  const postData = new Post(req.body);
+  postData.save((err, post) => {
+    if (err) {
+      return res.status(500).send(err);
+    }
+    return res.status(200).send(post);
+  });
+})
 
 module.exports = router;
