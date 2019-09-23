@@ -2,9 +2,12 @@
   "name": "simple-blog",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "rimraf ./dist && babel ./src -d ./dist",
+    "prestart": "npm run -s build",
+    "start": "cross-env NODE_ENV=production PORT=3000 node dist/app.js",
+    "dev": "cross-env NODE_ENV=development PORT=3000 nodemon -w ./src/app.js --exec \"babel-node ./src/app.js\""
   },
   "repository": {
     "type": "git",
@@ -26,6 +29,15 @@
     "body-parser": "^1.19.0",
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^5.7.1"
+    "mongoose": "^5.7.1",
+    "mongoose-url-slugs": "^1.0.2"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.3",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "cross-env": "^6.0.0",
+    "rimraf": "^2.6.2"
   }
 }
